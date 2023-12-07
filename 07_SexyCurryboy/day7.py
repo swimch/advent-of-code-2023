@@ -1,20 +1,31 @@
 input_data = []
 hands = []
+hands_j = []
 with open('input.txt', 'r') as f:
     for line in f:
         input_data.append(line[:-1].split())
 
 print(input_data)
 mapping_table = str.maketrans({'A': "14", 'K': '13', 'Q': '12', 'J': '11', 'T': '10'})
+mapping_table_j = str.maketrans({'A': "14", 'K': '13', 'Q': '12', 'J': '0', 'T': '10'})
 for line in input_data:
     hand = {
         "hand": [x for x in line[0]],
         "bid": int(line[1]),
         "rank": 0,
     }
+    hand_j = {
+        "hand": [x for x in line[0]],
+        "bid": int(line[1]),
+        "rank": 0,
+    }
     for count, card in enumerate(line[0]):
         hand[str(count)] = int(card.translate(mapping_table))
+        hand_j[str(count)] = int(card.translate(mapping_table_j))
     hands.append(hand)
+    hands_j.append(hand_j)
+    print(hand)
+    print(hand_j)
 
 
 def find_type(hand_f):
@@ -67,11 +78,11 @@ for count, hand in enumerate(sorted_hands):
     winnings += hand["rank"] * hand["bid"]
 print(winnings)
 
-for hand in hands:
+for hand in hands_j:
     hand["type"] = find_type_j(hand["hand"])
-sorted_hands = sorted(hands, key=lambda e: (e["type"], e["0"], e["1"], e["2"], e["3"], e["4"]))
+sorted_hands_j = sorted(hands_j, key=lambda e: (e["type"], e["0"], e["1"], e["2"], e["3"], e["4"]))
 winnings = 0
-for count, hand in enumerate(sorted_hands):
+for count, hand in enumerate(sorted_hands_j):
     hand["rank"] = count + 1
     winnings += hand["rank"] * hand["bid"]
 print(winnings)
