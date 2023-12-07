@@ -5,7 +5,6 @@ with open('input.txt', 'r') as f:
     for line in f:
         input_data.append(line[:-1].split())
 
-print(input_data)
 mapping_table = str.maketrans({'A': "14", 'K': '13', 'Q': '12', 'J': '11', 'T': '10'})
 mapping_table_j = str.maketrans({'A': "14", 'K': '13', 'Q': '12', 'J': '0', 'T': '10'})
 for line in input_data:
@@ -24,8 +23,6 @@ for line in input_data:
         hand_j[str(count)] = int(card.translate(mapping_table_j))
     hands.append(hand)
     hands_j.append(hand_j)
-    print(hand)
-    print(hand_j)
 
 
 def find_type(hand_f):
